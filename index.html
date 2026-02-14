@@ -6,136 +6,164 @@
 <title>Valentine Surprise ❤️</title>
 
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    body {
-        height: 100vh;
-        overflow: hidden;
-        text-align: center;
-        background-color: #000; /* fallback dark background */
-    }
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    text-align: center;
+    background-color: #000;
+}
 
-    /* Initial popup overlay */
-    #popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.95); /* dark background */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-        flex-direction: column;
-        color: white;
-    }
+/* Popup */
+#popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-direction: column;
+    color: white;
+    padding: 20px;
+}
+
+#popup h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #ff4d6d;
+    text-shadow: 1px 1px 8px #ff6680;
+}
+
+.btn {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s;
+}
+
+#yesBtn { background-color: #ff4d6d; }
+#noBtn { background-color: #555; }
+
+/* Valentine Content */
+#valentineContent {
+    display: none;
+    min-height: 100vh;
+    background-image: url("ketan.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    overflow: hidden;
+}
+
+/* Dark overlay */
+#valentineContent::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 0;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeIn 2s ease-in-out;
+    line-height: 1.7;
+}
+
+.content h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ff4d6d;
+    text-shadow: 2px 2px 12px #ff6680;
+}
+
+.content p {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #fff;
+    text-shadow: 1px 1px 6px #ff6680;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 24px;
+    animation: floatUp linear infinite;
+    color: #ff4d6d;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* -------- MOBILE RESPONSIVE -------- */
+@media (max-width: 768px) {
 
     #popup h1 {
-        font-size: 36px;
-        margin-bottom: 30px;
-        color: #ff4d6d;
-        text-shadow: 1px 1px 8px #ff6680;
+        font-size: 22px;
     }
 
     .btn {
-        padding: 12px 25px;
-        margin: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        color: white;
-        transition: transform 0.2s;
-    }
-
-    #yesBtn {
-        background-color: #ff4d6d;
-    }
-
-    #noBtn {
-        background-color: #555;
-        position: relative;
-    }
-
-    /* Valentine content page */
-    #valentineContent {
-        display: none; /* hidden initially */
-        height: 100vh;
-        background-image: url("ketan.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center 20%; /* upper part visible */
-        color: white;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-        text-align: center;
-        padding: 20px;
-        overflow: hidden;
-    }
-
-    /* overlay to darken background */
-    #valentineContent::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.45);
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
-
-    .content {
-        position: relative;
-        z-index: 2;
-        max-width: 800px;
-        animation: fadeIn 2s ease-in-out;
-        line-height: 1.8;
+        width: 80%;
+        max-width: 250px;
+        font-size: 15px;
     }
 
     .content h1 {
-        font-size: 42px;
-        margin-bottom: 25px;
-        color: #ff4d6d;
-        text-shadow: 2px 2px 12px #ff6680;
+        font-size: 24px;
     }
 
     .content p {
-        font-size: 22px;
-        margin-bottom: 15px;
-        color: #fff;
-        text-shadow: 1px 1px 6px #ff6680;
+        font-size: 16px;
     }
 
-    /* Floating hearts */
-    .heart {
-        position: absolute;
-        bottom: -10px;
-        font-size: 24px;
-        animation: floatUp linear infinite;
-        color: #ff4d6d;
+    #valentineContent {
+        background-position: top center;
+        padding-top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content h1 {
+        font-size: 20px;
     }
 
-    @keyframes floatUp {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    .content p {
+        font-size: 15px;
     }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+}
 
 </style>
 </head>
 <body>
 
-<!-- Popup overlay -->
+<!-- Popup -->
 <div id="popup">
     <h1>Will you be my Valentine? 💖</h1>
     <button class="btn" id="yesBtn">Yes</button>
@@ -153,52 +181,49 @@
         <p>Forever tujhach,<br>Tujha navra-to-be 😌💖</p>
     </div>
 
-    <!-- Audio -->
     <audio id="bgMusic" loop>
         <source src="audio.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 </div>
 
-<!-- Scripts -->
 <script>
-    const popup = document.getElementById('popup');
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const valentine = document.getElementById('valentineContent');
-    const music = document.getElementById('bgMusic');
+const popup = document.getElementById('popup');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const valentine = document.getElementById('valentineContent');
+const music = document.getElementById('bgMusic');
 
-    // YES button click
-    yesBtn.addEventListener('click', () => {
-        popup.style.display = 'none';
-        valentine.style.display = 'flex';
-        music.play();
-        startHearts();
-    });
+yesBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+    valentine.style.display = 'flex';
 
-    // NO button slips away
-    noBtn.addEventListener('mouseover', () => {
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-        noBtn.style.position = 'absolute';
-        noBtn.style.left = x + 'px';
-        noBtn.style.top = y + 'px';
-    });
+    // Mobile-friendly audio play
+    music.play().catch(() => {});
 
-    // Floating hearts function
-    function startHearts() {
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-            heart.style.fontSize = (20 + Math.random() * 20) + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-        setInterval(createHeart, 300);
+    startHearts();
+});
+
+noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+});
+
+function startHearts() {
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        heart.style.fontSize = (18 + Math.random() * 18) + "px";
+        valentine.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
     }
+    setInterval(createHeart, 300);
+}
 </script>
 
 </body>
