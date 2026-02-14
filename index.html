@@ -15,7 +15,10 @@
 
     body {
         height: 100vh;
-        background: url("ketan.png") no-repeat center center/cover;
+        background-image: url("ketan.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center 20%; /* pushes image down so upper part is visible */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,7 +28,7 @@
         text-align: center;
     }
 
-    /* Dark overlay for readability */
+    /* Dark overlay for text readability */
     body::before {
         content: "";
         position: absolute;
@@ -88,15 +91,16 @@
 <div class="content">
     <h1>Happy Valentine's Day ❤️</h1>
     <p>
-        Every moment with you feels magical.
+        Every moment with you feels magical.<br>
         You are my happiness, my peace, and my forever love.
     </p>
     <p>
-        No matter where life takes us,
+        No matter where life takes us,<br>
         my heart will always belong to you. 💕
     </p>
 </div>
 
+<!-- Floating Hearts Animation -->
 <script>
     function createHeart() {
         const heart = document.createElement("div");
