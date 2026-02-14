@@ -12,7 +12,7 @@
         background-image: url("ketan.png");
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center 20%;
+        background-position: center 20%; /* pushes image down so upper part is visible */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -22,6 +22,7 @@
         text-align: center;
     }
 
+    /* Dark overlay for readability */
     body::before {
         content: "";
         position: absolute;
@@ -44,6 +45,7 @@
     h1 { font-size: 45px; margin-bottom: 20px; }
     p { font-size: 20px; line-height: 1.6; margin-bottom: 15px; }
 
+    /* Floating Hearts */
     .heart {
         position: absolute;
         bottom: -10px;
@@ -93,14 +95,11 @@
     setInterval(createHeart, 300);
 </script>
 
-<!-- YouTube Background Music (Heer Ranjha) -->
-<iframe width="0" height="0"
-    src="https://www.youtube.com/embed/7eFSPG1x3fE?autoplay=1&loop=1&playlist=7eFSPG1x3fE"
-    title="Heer Ranjha"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-</iframe>
+<!-- Background Music -->
+<audio autoplay loop>
+    <source src="audio.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
 </body>
 </html>
