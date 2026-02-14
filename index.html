@@ -1,64 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Happy Valentine's Day ❤️</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's Day ❤️</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            color: white;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 40px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+    body {
+        height: 100vh;
+        background: url("couple.jpg") no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        color: white;
+        text-align: center;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-        }
+    /* Dark overlay */
+    body::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
 
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
+    .content {
+        position: relative;
+        z-index: 2;
+        max-width: 600px;
+        padding: 20px;
+    }
 
-        .heart {
-            font-size: 40px;
-            margin-top: 20px;
+    h1 {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    /* Heart animation */
+    .heart {
+        position: absolute;
+        bottom: -10px;
+        font-size: 24px;
+        animation: floatUp 6s linear infinite;
+        color: #ff4d6d;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
         }
-    </style>
+        100% {
+            transform: translateY(-100vh) scale(1.5);
+            opacity: 0;
+        }
+    }
+</style>
 </head>
 
 <body>
 
-    <div class="card">
-        <h1>Happy Valentine's Day ❤️</h1>
-        <p>
-            From the moment you came into my life, everything feels brighter and more beautiful.  
-            Your smile is my favorite sight, your voice is my favorite sound,  
-            and your happiness means everything to me.
-        </p>
-        <p>
-            Thank you for being my love, my best friend, and my forever.  
-            Today and always, I choose you. 💕
-        </p>
-        <div class="heart">💖</div>
-    </div>
+<div class="content">
+    <h1>Happy Valentine's Day ❤️</h1>
+    <p>
+        Every moment with you feels magical.  
+        You are my happiness, my peace, and my forever love.  
+        I am so lucky to have you in my life.
+    </p>
+    <p>
+        No matter where life takes us,  
+        my heart will always belong to you. 💕
+    </p>
+</div>
+
+<!-- Floating Hearts -->
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
 
 </body>
 </html>
