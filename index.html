@@ -6,7 +6,7 @@
 <title>Valentine Surprise ❤️</title>
 
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
     body {
         height: 100vh;
@@ -15,11 +15,57 @@
         background-color: #000; /* fallback dark background */
     }
 
-    /* Full-page Valentine content */
+    /* Initial popup overlay */
+    #popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95); /* dark background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        flex-direction: column;
+        color: white;
+    }
+
+    #popup h1 {
+        font-size: 36px;
+        margin-bottom: 30px;
+        color: #ff4d6d;
+        text-shadow: 1px 1px 8px #ff6680;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        margin: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        transition: transform 0.2s;
+    }
+
+    #yesBtn {
+        background-color: #ff4d6d;
+    }
+
+    #noBtn {
+        background-color: #555;
+        position: relative;
+    }
+
+    /* Valentine content page */
     #valentineContent {
         display: none; /* hidden initially */
         height: 100vh;
-        background-color: #1c1c1c; /* dark background for main page */
+        background-image: url("ketan.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center 20%; /* upper part visible */
         color: white;
         position: relative;
         display: flex;
@@ -29,17 +75,42 @@
         z-index: 1;
         text-align: center;
         padding: 20px;
+        overflow: hidden;
+    }
+
+    /* overlay to darken background */
+    #valentineContent::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.45);
+        top: 0;
+        left: 0;
+        z-index: 0;
     }
 
     .content {
         position: relative;
         z-index: 2;
-        max-width: 700px;
+        max-width: 800px;
         animation: fadeIn 2s ease-in-out;
+        line-height: 1.8;
     }
 
-    h1 { font-size: 40px; margin-bottom: 20px; color: #ff4d6d; }
-    p { font-size: 20px; line-height: 1.6; margin-bottom: 15px; }
+    .content h1 {
+        font-size: 42px;
+        margin-bottom: 25px;
+        color: #ff4d6d;
+        text-shadow: 2px 2px 12px #ff6680;
+    }
+
+    .content p {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #fff;
+        text-shadow: 1px 1px 6px #ff6680;
+    }
 
     /* Floating hearts */
     .heart {
@@ -60,45 +131,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Popup overlay */
-    #popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-        flex-direction: column;
-        color: white;
-    }
-
-    #popup h1 {
-        font-size: 36px;
-        margin-bottom: 30px;
-    }
-
-    .btn {
-        padding: 12px 25px;
-        margin: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        color: white;
-    }
-
-    #yesBtn {
-        background-color: #ff4d6d;
-    }
-
-    #noBtn {
-        background-color: #555;
-        position: relative;
-    }
 </style>
 </head>
 <body>
@@ -114,27 +146,11 @@
 <div id="valentineContent">
     <div class="content">
         <h1>💕 Happy Valentine’s Day, Majhi Bayko Sakshi 💕</h1>
-        <p>
-            Majhi premachi karbharin,<br>
-            majhi jivachi ardhagini,
-        </p>
-        <p>
-            Tujhya sobat asel tar<br>
-            pratyek divas mala Valentine’s Day sarkha vatto ❤️
-        </p>
-        <p>
-            Tu majhya ayushyachi shanti aahes,<br>
-            majhya swapnanchi saathi aahes,<br>
-            aani majhya hrudayachi rani aahes 👑
-        </p>
-        <p>
-            Aaj nahi, fakta 14 Feb nahi,<br>
-            tar ayushyabhar tujhach haath dharun rahaychay mala.
-        </p>
-        <p>
-            Forever tujhach,<br>
-            Tujha navra-to-be 😌💖
-        </p>
+        <p>Majhi premachi karbharin,<br>majhi jivachi ardhagini,</p>
+        <p>Tujhya sobat asel tar<br>pratyek divas mala Valentine’s Day sarkha vatto ❤️</p>
+        <p>Tu majhya ayushyachi shanti aahes,<br>majhya swapnanchi saathi aahes,<br>aani majhya hrudayachi rani aahes 👑</p>
+        <p>Aaj nahi, fakta 14 Feb nahi,<br>tar ayushyabhar tujhach haath dharun rahaychay mala.</p>
+        <p>Forever tujhach,<br>Tujha navra-to-be 😌💖</p>
     </div>
 
     <!-- Audio -->
@@ -160,7 +176,7 @@
         startHearts();
     });
 
-    // NO button behavior: slips away on hover
+    // NO button slips away
     noBtn.addEventListener('mouseover', () => {
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
