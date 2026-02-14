@@ -3,44 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Valentine's Day ❤️</title>
+<title>Valentine Surprise ❤️</title>
 
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
     body {
         height: 100vh;
-        background-image: url("ketan.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center 20%; /* show upper part of image */
-        display: flex;
-        justify-content: center;
-        align-items: center;
         overflow: hidden;
-        position: relative;
-        color: white;
         text-align: center;
     }
 
-    /* Dark overlay */
-    body::before {
+    /* Full-page background and content */
+    #valentineContent {
+        display: none; /* hidden initially */
+        height: 100vh;
+        background-image: url("ketan.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center 20%;
+        color: white;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        text-align: center;
+    }
+
+    #valentineContent::before {
         content: "";
         position: absolute;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0,0,0,0.5);
         top: 0;
         left: 0;
         z-index: 0;
     }
 
-    .content {
+    #valentineContent .content {
         position: relative;
         z-index: 2;
         max-width: 700px;
         padding: 20px;
-        animation: fadeIn 3s ease-in-out;
+        animation: fadeIn 2s ease-in-out;
     }
 
     h1 { font-size: 45px; margin-bottom: 20px; }
@@ -65,70 +73,116 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Play Music Button */
-    #playMusic {
+    /* Initial overlay popup */
+    #popup {
         position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: none;
-        background-color: #ff4d6d;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        flex-direction: column;
         color: white;
+    }
+
+    #popup h1 {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        margin: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
         cursor: pointer;
-        z-index: 3;
+        color: white;
+    }
+
+    #yesBtn {
+        background-color: #ff4d6d;
+    }
+
+    #noBtn {
+        background-color: #555;
+        position: relative;
     }
 </style>
 </head>
-
 <body>
 
-<div class="content">
-    <h1>Happy Valentine's Day ❤️</h1>
-    <p>
-        Every moment with you feels magical.<br>
-        You are my happiness, my peace, and my forever love.
-    </p>
-    <p>
-        No matter where life takes us,<br>
-        my heart will always belong to you. 💕
-    </p>
+<!-- Popup overlay -->
+<div id="popup">
+    <h1>Are you my Valentine? 💖</h1>
+    <button class="btn" id="yesBtn">Yes</button>
+    <button class="btn" id="noBtn">No</button>
 </div>
 
-<!-- Floating Hearts Animation -->
+<!-- Valentine Content -->
+<div id="valentineContent">
+    <div class="content">
+        <h1>Happy Valentine's Day ❤️</h1>
+        <p>
+            Every moment with you feels magical.<br>
+            You are my happiness, my peace, and my forever love.
+        </p>
+        <p>
+            No matter where life takes us,<br>
+            my heart will always belong to you. 💕
+        </p>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<!-- Scripts -->
 <script>
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-        heart.style.fontSize = (20 + Math.random() * 20) + "px";
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.remove(); }, 6000);
-    }
-    setInterval(createHeart, 300);
-</script>
+    const popup = document.getElementById('popup');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const valentine = document.getElementById('valentineContent');
+    const music = document.getElementById('bgMusic');
 
-<!-- Audio Player -->
-<audio id="bgMusic" loop>
-    <source src="audio.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-
-<!-- Play Music Button -->
-<button id="playMusic">Play Music 🎵</button>
-
-<script>
-    const music = document.getElementById("bgMusic");
-    const button = document.getElementById("playMusic");
-
-    button.addEventListener("click", () => {
+    // YES button click
+    yesBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+        valentine.style.display = 'flex';
         music.play();
-        button.style.display = "none"; // hide button after starting music
+        startHearts();
     });
+
+    // NO button behavior: slips away on hover
+    noBtn.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+    });
+
+    // Floating hearts function
+    function startHearts() {
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+            heart.style.fontSize = (20 + Math.random() * 20) + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 300);
+    }
 </script>
 
 </body>
