@@ -7,12 +7,13 @@
 
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
     body {
         height: 100vh;
         background-image: url("ketan.png");
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center 20%; /* pushes image down so upper part is visible */
+        background-position: center 20%; /* show upper part of image */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -22,7 +23,7 @@
         text-align: center;
     }
 
-    /* Dark overlay for readability */
+    /* Dark overlay */
     body::before {
         content: "";
         position: absolute;
@@ -45,7 +46,7 @@
     h1 { font-size: 45px; margin-bottom: 20px; }
     p { font-size: 20px; line-height: 1.6; margin-bottom: 15px; }
 
-    /* Floating Hearts */
+    /* Floating hearts */
     .heart {
         position: absolute;
         bottom: -10px;
@@ -62,6 +63,22 @@
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Play Music Button */
+    #playMusic {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #ff4d6d;
+        color: white;
+        cursor: pointer;
+        z-index: 3;
     }
 </style>
 </head>
@@ -95,11 +112,24 @@
     setInterval(createHeart, 300);
 </script>
 
-<!-- Background Music -->
-<audio autoplay loop>
+<!-- Audio Player -->
+<audio id="bgMusic" loop>
     <source src="audio.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
+
+<!-- Play Music Button -->
+<button id="playMusic">Play Music 🎵</button>
+
+<script>
+    const music = document.getElementById("bgMusic");
+    const button = document.getElementById("playMusic");
+
+    button.addEventListener("click", () => {
+        music.play();
+        button.style.display = "none"; // hide button after starting music
+    });
+</script>
 
 </body>
 </html>
