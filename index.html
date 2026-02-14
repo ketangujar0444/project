@@ -15,7 +15,7 @@
 
     body {
         height: 100vh;
-        background: url("couple.jpg") no-repeat center center/cover;
+        background: url("ketan.png") no-repeat center center/cover;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,7 +25,7 @@
         text-align: center;
     }
 
-    /* Dark overlay */
+    /* Dark overlay for readability */
     body::before {
         content: "";
         position: absolute;
@@ -40,26 +40,28 @@
     .content {
         position: relative;
         z-index: 2;
-        max-width: 600px;
+        max-width: 700px;
         padding: 20px;
+        animation: fadeIn 3s ease-in-out;
     }
 
     h1 {
-        font-size: 40px;
+        font-size: 45px;
         margin-bottom: 20px;
     }
 
     p {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.6;
+        margin-bottom: 15px;
     }
 
-    /* Heart animation */
+    /* Floating Hearts */
     .heart {
         position: absolute;
         bottom: -10px;
         font-size: 24px;
-        animation: floatUp 6s linear infinite;
+        animation: floatUp linear infinite;
         color: #ff4d6d;
     }
 
@@ -73,6 +75,11 @@
             opacity: 0;
         }
     }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
 </head>
 
@@ -81,17 +88,15 @@
 <div class="content">
     <h1>Happy Valentine's Day ❤️</h1>
     <p>
-        Every moment with you feels magical.  
-        You are my happiness, my peace, and my forever love.  
-        I am so lucky to have you in my life.
+        Every moment with you feels magical.
+        You are my happiness, my peace, and my forever love.
     </p>
     <p>
-        No matter where life takes us,  
+        No matter where life takes us,
         my heart will always belong to you. 💕
     </p>
 </div>
 
-<!-- Floating Hearts -->
 <script>
     function createHeart() {
         const heart = document.createElement("div");
@@ -99,6 +104,7 @@
         heart.innerHTML = "❤";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
         document.body.appendChild(heart);
 
         setTimeout(() => {
